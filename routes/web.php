@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('metrics', 'MetricController');
+Route::resource('data_points', 'DataPointController');
