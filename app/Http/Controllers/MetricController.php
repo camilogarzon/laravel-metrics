@@ -44,8 +44,10 @@ class MetricController extends Controller
         ];
         if($request->ajax()) {
 
+            // TODO: validate data
             $metric = new Metric();
             $metric->name = $request->input('name');
+            $metric->data_type = $request->input('data_type');
             $metric->save();
 
             $response = [
@@ -75,7 +77,10 @@ class MetricController extends Controller
      */
     public function edit(Metric $metric)
     {
-        //
+        return response()->json([
+            'valid' => true,
+            'model' => $metric->toArray()
+        ]);
     }
 
     /**
@@ -93,7 +98,9 @@ class MetricController extends Controller
         ];
         if($request->ajax()) {
 
+            // TODO: validate data
             $metric->name = $request->input('name');
+            $metric->data_type = $request->input('data_type');
             $metric->save();
 
             $response = [
@@ -112,6 +119,17 @@ class MetricController extends Controller
      */
     public function destroy(Metric $metric)
     {
-        //
+        $metricDeleted = clone $metric;
+
+        foreach ($metric->dataPoints as $dataPoint) {
+            $dataPoint->delete();
+        }
+
+        $metric->delete();
+
+        return response()->json([
+            'valid' => true,
+            'model' => $metricDeleted->toArray()
+        ]);
     }
 }

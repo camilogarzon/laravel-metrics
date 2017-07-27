@@ -35,7 +35,10 @@
                             <a class="nav-link" href="{{ url('/data_points') }}">Data Points</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/data_points') }}">Charts</a>
+                            <a class="nav-link" href="{{ url('/data_point/table') }}">Table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/data_point/chart') }}">Chart</a>
                         </li>
                     </ul>
                 </div>
@@ -45,13 +48,13 @@
                 @yield('content')
             </div>
         </div>
-
-
-        <script src="{{ asset('js/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/lib/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-        <script type="text/javascript">rootUrl = "{{ URL::to('/')}}/";</script>
-        <script type="text/javascript">csrfToken = "{{ csrf_token() }}";</script>
+        <script type="text/javascript">
+            window.rootUrl = "{{ URL::to('/')}}/";
+            window.csrfToken = "{{ csrf_token() }}";
+        </script>
         @yield('javascript')
     </body>
 </html>

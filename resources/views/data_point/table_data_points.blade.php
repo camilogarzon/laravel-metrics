@@ -1,36 +1,34 @@
 @extends('layout.default')
 
 @section('content')
-    <h1>Data Points</h1>
+    <h1>Data Points Table</h1>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDataPoint">
-        Create
-    </button>
 
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Metric Name</th>
-            <th>Date</th>
-            <th>Integer</th>
-            <th>Decimal</th>
-            <th>Action</th>
+            <th>Data Type</th>
+
+            @foreach($dataPointDates as $date)
+                <th>{{ $date->date_value }}</th>
+            @endforeach
         </tr>
         </thead>
         <tbody id="tableBody">
-        @foreach($dataPoints as $dataPoint)
-            <tr data-row-id="{{ $dataPoint->id }}">
-                <td>{{ $dataPoint->id }}</td>
-                <td class="metric-name">{{ $dataPoint->metric->name }}</td>
-                <td class="date-value">{{ $dataPoint->date_value }}</td>
-                <td class="integer-value">{{ $dataPoint->integer_value }}</td>
-                <td class="decimal-value">{{ $dataPoint->decimal_value }}</td>
-                <td>
-                    <button type="button" class="btn btn-primary" data-edit-id="{{ $dataPoint->id }}">Edit</button>
-                    <button type="button" class="btn btn-danger" data-destroy-id="{{ $dataPoint->id }}">Delete</button>
-                </td>
+        @foreach($metrics as $metric)
+            <tr>
+                <td>{{ $metric->name }}</td>
+                <td>{{ $metric->data_type }}</td>
+                @foreach($dataPointDates as $date)
+                    <td>
+                        @foreach($dataPoints as $dataPoint)
+                            @if($dataPoint['metric_id'] == $metric->id && $date->date_value == $dataPoint['date_value'])
+                                {{ $dataPoint[$metric->data_type.'_value'] }}
+                            @endif
+                        @endforeach
+                    </td>
+                @endforeach
             </tr>
         @endforeach
         </tbody>

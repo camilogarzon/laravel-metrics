@@ -17,3 +17,5 @@ Route::get('/', function () {
 
 Route::resource('metrics', 'MetricController');
 Route::resource('data_points', 'DataPointController');
+Route::get('data_point/table', 'DataPointController@dataPointTable');
+Route::get('data_point/chart', 'DataPointController@dataPointChart');

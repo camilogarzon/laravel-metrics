@@ -16,8 +16,9 @@ class CreateDataPointsTable extends Migration
         Schema::create('data_points', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->integer('metric_id')->unsigned();
-            $table->date('date_value')->nullable();
+            $table->date('date_value');
             $table->integer('integer_value')->nullable();
             $table->decimal('decimal_value', 9, 2)->nullable();
 

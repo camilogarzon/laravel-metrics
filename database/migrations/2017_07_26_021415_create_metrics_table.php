@@ -16,7 +16,9 @@ class CreateMetricsTable extends Migration
         Schema::create('metrics', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('name');
+            $table->string('data_type');
         });
     }
 

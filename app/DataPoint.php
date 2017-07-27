@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DataPoint extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -19,6 +22,13 @@ class DataPoint extends Model
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * Relationship. A data point belongs to a metric.
