@@ -58,6 +58,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        {{--TODO: implement a Date Picker--}}
                         <div class="form-group">
                             <label for="date_value">Date</label>
                             <input type="date" class="form-control" id="date_value" name="date_value" placeholder="YYYY-MM-DD">
