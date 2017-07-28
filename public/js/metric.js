@@ -37,7 +37,7 @@ var Metric = {
     },
 
     update : function(data) {
-        var row = DataPoint.Modal.tableBody.find('[data-row-id="' + data.model.id + '"]');
+        var row = Metric.Modal.tableBody.find('[data-row-id="' + data.model.id + '"]');
         row.find('.name').html(data.model.name);
         row.find('.data_type').html(data.model.data_type);
 

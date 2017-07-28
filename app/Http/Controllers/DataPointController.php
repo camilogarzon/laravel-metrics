@@ -165,7 +165,35 @@ class DataPointController extends Controller
     }
 
     public function dataPointChart () {
+        $metrics = Metric::where('id','>', 0)->orderBy('name', 'asc')->get();
+        $dataPointDates = DataPoint::select('date_value')->orderBy('date_value', 'asc')->distinct()->get();
+        $dataPoints = DataPoint::select(DB::raw('metric_id, date_value, sum(integer_value) as integer_value, sum(decimal_value) as decimal_value'))
+            ->groupBy('metric_id')->groupBy('date_value')->get()->toArray();
 
-        echo 'TODO CHARTS';
+        $header = [];
+        $chartPoints = [];
+        $header[0] = 'Date';
+        foreach ($metrics as $metric) {
+            $header[$metric->id] = $metric->name;
+        }
+
+        $chartPoints[] = $header;
+
+        foreach ($dataPointDates as $date) {
+            $point = [];
+            $point[0] = $date->date_value;
+            foreach ($metrics as $metric) {
+                $point[$metric->id] = 0;
+                foreach ($dataPoints as $dataPoint) {
+                    if($dataPoint['metric_id'] == $metric->id && $date->date_value == $dataPoint['date_value']) {
+                        $point[$metric->id] = floatval($dataPoint[$metric->data_type.'_value']);
+                    }
+                }
+            }
+            $chartPoints[] = $point;
+        }
+
+        $viewData = ['chartPoints' => $chartPoints];
+        return view('data_point.chart_data_points')->with($viewData);
     }
 }
