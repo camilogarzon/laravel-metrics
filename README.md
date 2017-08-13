@@ -1,9 +1,9 @@
-# PilotMetrics
+# laravel-metrics
 Metrics Tracking System
 
 Go to project folder:
 ```sh
-$ cd $HOME/PilotMetrics
+$ cd $HOME/laravel-metrics
 ```
 
 Install dependencies with composer:
@@ -19,7 +19,7 @@ $ php artisan migrate
 
 Set permissions:
 ```sh
-$ chmod -R 777 $HOME/PilotMetrics/storage/*
+$ chmod -R 777 $HOME/laravel-metrics/storage/*
 ```
 
 
